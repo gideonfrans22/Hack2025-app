@@ -3,6 +3,7 @@ import 'package:hack2025_mobile_app/commons/constant/gaps.dart';
 import 'package:hack2025_mobile_app/commons/constant/sizes.dart';
 import 'package:hack2025_mobile_app/commons/themes.dart';
 import 'package:hack2025_mobile_app/comunity/widgets/post.dart';
+import 'package:hack2025_mobile_app/widgets/accessible_wrapper.dart';
 
 class CommunityScreen extends StatefulWidget {
   const CommunityScreen({super.key});
@@ -12,10 +13,8 @@ class CommunityScreen extends StatefulWidget {
 }
 
 class _CommunityScreenState extends State<CommunityScreen> {
-
- final TextEditingController _postController = TextEditingController();
+  final TextEditingController _postController = TextEditingController();
   String posting = "";
-
 
   @override
   void initState() {
@@ -125,7 +124,8 @@ class _CommunityScreenState extends State<CommunityScreen> {
                                     // 보내기 로직
                                     Navigator.pop(context);
                                   },
-                                  child: const Text("보내기",style: TextStyle(fontSize: 24)),
+                                  child: const Text("보내기",
+                                      style: TextStyle(fontSize: 24)),
                                 ),
                               ),
                               const SizedBox(height: 10),
@@ -144,7 +144,8 @@ class _CommunityScreenState extends State<CommunityScreen> {
                                     elevation: 0,
                                   ),
                                   onPressed: () => Navigator.pop(context),
-                                  child: const Text("취소",style: TextStyle(fontSize: 24)),
+                                  child: const Text("취소",
+                                      style: TextStyle(fontSize: 24)),
                                 ),
                               ),
                             ],
@@ -176,8 +177,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16)),
                         child: SizedBox(
-                           width: 350,
-                
+                          width: 350,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -188,68 +188,74 @@ class _CommunityScreenState extends State<CommunityScreen> {
                                 maxLength: 15,
                                 style: const TextStyle(
                                     color: Colors.black, fontSize: 26),
-                                 decoration: InputDecoration(
-                                  hintStyle: const TextStyle(fontSize:40,fontWeight: FontWeight.bold,),
-                                                  hintText: "게시물 공유",
-                                                  filled: true,
-                                                  fillColor: const Color(0xFFF6F6F6),
-                                                  border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(8),
-                                                    borderSide: BorderSide.none,
-                                                  ),
-                                                  contentPadding: const EdgeInsets.all(12),
-                                                ),
+                                decoration: InputDecoration(
+                                  hintStyle: const TextStyle(
+                                    fontSize: 40,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  hintText: "게시물 공유",
+                                  filled: true,
+                                  fillColor: const Color(0xFFF6F6F6),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  contentPadding: const EdgeInsets.all(12),
+                                ),
                               ),
-                               Column(
+                              Column(
                                 children: [
                                   SizedBox(
-                                  width: 160,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          const Color(0xFF8DBCB8), // 청록색
-                                      foregroundColor: Colors.black,
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 12),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
+                                    width: 160,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            const Color(0xFF8DBCB8), // 청록색
+                                        foregroundColor: Colors.black,
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 12),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        elevation: 0,
                                       ),
-                                      elevation: 0,
+                                      onPressed: () {
+                                        // 보내기 로직
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text("보내기",
+                                          style: TextStyle(fontSize: 24)),
                                     ),
-                                    onPressed: () {
-                                      // 보내기 로직
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text("보내기",style: TextStyle(fontSize: 24)),
                                   ),
-                                ),
-                                const SizedBox(height: 10),
-                                SizedBox(
-                                  width: 160,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          const Color(0xFFE0E0E0), // 연회색
-                                      foregroundColor: Colors.black,
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 12),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
+                                  const SizedBox(height: 10),
+                                  SizedBox(
+                                    width: 160,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            const Color(0xFFE0E0E0), // 연회색
+                                        foregroundColor: Colors.black,
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 12),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        elevation: 0,
                                       ),
-                                      elevation: 0,
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text("취소",
+                                          style: TextStyle(fontSize: 24)),
                                     ),
-                                    onPressed: () => Navigator.pop(context),
-                                    child: const Text("취소",style: TextStyle(fontSize: 24)),
                                   ),
-                                ),
                                 ],
-                               ),
+                              ),
                               const SizedBox(height: 10)
                             ],
                           ),
                         ),
-                        
-                        );
+                      );
                     },
                   );
                 },
@@ -274,8 +280,9 @@ class _CommunityScreenState extends State<CommunityScreen> {
         const Post(postType: false),
         const SizedBox(height: 20),
         // 돌아가기
-        GestureDetector(
-          onTap: _onBackTap,
+        AccessibleWrapper(
+          audioDescription: '돌아가기 버튼입니다. 이전 화면으로 돌아갑니다.',
+          onDoubleTap: _onBackTap,
           child: Container(
             width: MediaQuery.of(context).size.width * 0.85,
             decoration: const BoxDecoration(

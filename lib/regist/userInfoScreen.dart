@@ -7,6 +7,7 @@ import 'package:hack2025_mobile_app/widgets/login_container.dart';
 import 'package:hack2025_mobile_app/regist/userInterestScreen.dart';
 import 'package:hack2025_mobile_app/widgets/selectGender.dart';
 import 'package:hack2025_mobile_app/widgets/userInfo.dart';
+import 'package:hack2025_mobile_app/widgets/accessible_wrapper.dart';
 
 class Userinfoscreen extends StatefulWidget {
   const Userinfoscreen({super.key});
@@ -16,21 +17,19 @@ class Userinfoscreen extends StatefulWidget {
 }
 
 class _UserinfoscreenState extends State<Userinfoscreen> {
-  
-
   void _onNextTap() {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const Userinterestscreen(), 
+        builder: (context) => const Userinterestscreen(),
       ),
     );
   }
-void _onBackTap() {
+
+  void _onBackTap() {
     Navigator.pop(context);
     // print("작동 완료!!!!!!!!! $id , $password");
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -52,53 +51,54 @@ void _onBackTap() {
           border: 1,
         ),
         Gaps.v16,
-         GestureDetector(
-              onTap: _onNextTap,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.85,
-                decoration: const BoxDecoration(
+        AccessibleWrapper(
+          audioDescription:
+              '다음으로 버튼입니다. 사용자 관심사 선택 화면으로 이동합니다. 두 번 탭하면 다음 단계로 진행합니다.',
+          onDoubleTap: _onNextTap,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.85,
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(15)),
-                  color: Themes.mint,
-                ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 13, horizontal: 20),
-                  child: Text(
-                    '다음으로',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Themes.kakao_text,
+              color: Themes.mint,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 20),
+              child: Text(
+                '다음으로',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Themes.kakao_text,
                   fontSize: MediaQuery.of(context).size.height * 0.04,
                   fontWeight: FontWeight.w700,
-                    ),
-                  ),
                 ),
               ),
             ),
-            Gaps.v24,
-            GestureDetector(
-              onTap: _onBackTap,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.85,
-                decoration: const BoxDecoration(
+          ),
+        ),
+        Gaps.v24,
+        AccessibleWrapper(
+          audioDescription: '돌아가기 버튼입니다. 이전 화면으로 돌아갑니다.',
+          onDoubleTap: _onBackTap,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.85,
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(15)),
-                  color: Themes.mint,
-                ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 13, horizontal: 20),
-                  child: Text(
-                    '돌아가기',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Themes.kakao_text,
+              color: Themes.mint,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 20),
+              child: Text(
+                '돌아가기',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Themes.kakao_text,
                   fontSize: MediaQuery.of(context).size.height * 0.04,
                   fontWeight: FontWeight.w700,
-                    ),
-                  ),
                 ),
               ),
             ),
+          ),
+        ),
       ],
     ));
   }

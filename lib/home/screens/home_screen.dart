@@ -7,6 +7,7 @@ import 'package:hack2025_mobile_app/home/widgets/progress_bar.dart';
 import 'package:hack2025_mobile_app/level_test/levelTest_screen.dart';
 import 'package:hack2025_mobile_app/levels/screens/level_screen.dart';
 import 'package:hack2025_mobile_app/settings/screen/settingScreen.dart';
+import 'package:hack2025_mobile_app/widgets/accessible_wrapper.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -58,13 +59,10 @@ class HomeScreen extends StatelessWidget {
                     55, //for setting space between mid-space of grid card
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  HomeCard(
-                    title: '학습 시작',
-                    iconAsset: 'assets/images/books_icon.png',
-                    iconSize: 0.28,
-                    //bgColor: Colors.white,
-                    //textColor: Colors.black,
-                    onTap: () {
+                  AccessibleWrapper(
+                    audioDescription:
+                        '학습 시작 카드입니다. 점자 학습을 시작할 수 있습니다. 두 번 탭하면 학습 화면으로 이동합니다.',
+                    onDoubleTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -72,12 +70,16 @@ class HomeScreen extends StatelessWidget {
                         ),
                       );
                     },
+                    child: const HomeCard(
+                      title: '학습 시작',
+                      iconAsset: 'assets/images/books_icon.png',
+                      iconSize: 0.28,
+                    ),
                   ),
-                  HomeCard(
-                    title: '레벨 테스트',
-                    iconAsset: 'assets/images/pencil_icon.png',
-                    iconSize: 0.28,
-                    onTap: () {
+                  AccessibleWrapper(
+                    audioDescription:
+                        '레벨 테스트 카드입니다. 현재 실력을 확인할 수 있습니다. 두 번 탭하면 레벨 테스트를 시작합니다.',
+                    onDoubleTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -85,12 +87,16 @@ class HomeScreen extends StatelessWidget {
                         ),
                       );
                     },
+                    child: const HomeCard(
+                      title: '레벨 테스트',
+                      iconAsset: 'assets/images/pencil_icon.png',
+                      iconSize: 0.28,
+                    ),
                   ),
-                  HomeCard(
-                    title: '커뮤니티',
-                    iconAsset: 'assets/images/community_icon.png',
-                    iconSize: 0.28,
-                    onTap: () {
+                  AccessibleWrapper(
+                    audioDescription:
+                        '커뮤니티 카드입니다. 다른 학습자들과 소통할 수 있습니다. 두 번 탭하면 커뮤니티로 이동합니다.',
+                    onDoubleTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -98,12 +104,16 @@ class HomeScreen extends StatelessWidget {
                         ),
                       );
                     },
+                    child: const HomeCard(
+                      title: '커뮤니티',
+                      iconAsset: 'assets/images/community_icon.png',
+                      iconSize: 0.28,
+                    ),
                   ),
-                  HomeCard(
-                    title: '설정',
-                    iconAsset: 'assets/images/setting_icon.png',
-                    iconSize: 0.28,
-                    onTap: () {
+                  AccessibleWrapper(
+                    audioDescription:
+                        '설정 카드입니다. 앱 설정을 변경할 수 있습니다. 두 번 탭하면 설정 화면으로 이동합니다.',
+                    onDoubleTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -111,6 +121,11 @@ class HomeScreen extends StatelessWidget {
                         ),
                       );
                     },
+                    child: const HomeCard(
+                      title: '설정',
+                      iconAsset: 'assets/images/setting_icon.png',
+                      iconSize: 0.28,
+                    ),
                   ),
                 ],
               ),
