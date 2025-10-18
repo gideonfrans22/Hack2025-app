@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hack2025_mobile_app/levels/widgets/braille_cell.dart';
+import 'package:hack2025_mobile_app/quiz/quiz_part.dart';
 
 class Part1FirstCons2 extends StatefulWidget {
   const Part1FirstCons2({
@@ -101,7 +102,17 @@ class _Part1FirstCons2State extends State<Part1FirstCons2> {
                         elevation: 0,
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        if (_navigated) return;
+                    _navigated = true;
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => OxQuizScreen(
+                                  service: FakeQuizService(),   
+                                  mode: QuizMode.oxButtons,     
+                                  setId: 'lesson-1',
+                          ),
+                      ),
+                    );
                       },
                       child: const Text(
                         "시작",

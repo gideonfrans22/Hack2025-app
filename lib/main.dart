@@ -7,6 +7,7 @@ import 'package:hack2025_mobile_app/levels/screens/beginner/jamo_lesson/part1_fi
 import 'package:hack2025_mobile_app/levels/screens/level_screen.dart';
 import 'package:hack2025_mobile_app/levels/widgets/braille_cell.dart';
 import 'package:hack2025_mobile_app/login/screens/login_screen.dart';
+import 'package:hack2025_mobile_app/quiz/quiz_part.dart';
 
 void main() => runApp(const Readable());
 
@@ -29,7 +30,11 @@ class Readable extends StatelessWidget {
       //home: const Part1FirstCons2(),
       //home:  const BrailleCell(),
       //home:  const LevelScreen(),
-
+      //home: OxQuizScreen(
+      //  service: FakeQuizService(),   // pakai dummy quiz
+      //  mode: QuizMode.oxButtons,     // atau QuizMode.hardwareBraille
+      //  setId: 'lesson-1',
+      //),
     );
   }
 
