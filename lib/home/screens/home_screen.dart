@@ -8,13 +8,11 @@ import 'package:hack2025_mobile_app/level_test/levelTest_screen.dart';
 import 'package:hack2025_mobile_app/levels/screens/level_screen.dart';
 import 'package:hack2025_mobile_app/settings/screen/settingScreen.dart';
 
-class HomeScreen extends StatelessWidget{
-  
-
+class HomeScreen extends StatelessWidget {
   const HomeScreen({
-    super.key, 
-    });
-  
+    super.key,
+  });
+
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
@@ -24,9 +22,7 @@ class HomeScreen extends StatelessWidget{
       backgroundColor: Colors.black,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(
-            horizontal: sw * 0.06, vertical: 20
-          ),
+          padding: EdgeInsets.symmetric(horizontal: sw * 0.06, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -34,56 +30,53 @@ class HomeScreen extends StatelessWidget{
                 '환영합니다, 민수님!',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 32, fontWeight: FontWeight.w800,
+                  fontSize: 32,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
-
               const SizedBox(height: 20),
-
               const ProgressBar(
-                  value: 0.05,
-                  height: 18,
-                  bgColor: Colors.white,
-                  fillColor: Color(0xFF75B7B3),
-                  labelRight: '65%',
-                ),
-
-                const SizedBox(height: 60),
-
-                const ConnectedButton(
-                  isConnected: false, 
+                value: 0.05,
+                height: 18,
+                bgColor: Colors.white,
+                fillColor: Color(0xFF75B7B3),
+                labelRight: '65%',
+              ),
+              const SizedBox(height: 60),
+              const ConnectedButton(
+                  isConnected: false,
                   iconPng: 'assets/images/braille_icon.png'),
-                
-                const SizedBox(height: 70,),
-
-                GridView.count(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.85,
-                  shrinkWrap: true,
-                  crossAxisSpacing: 30,     //for setting space of the side grid card
-                  mainAxisSpacing: 55,      //for setting space between mid-space of grid card
+              const SizedBox(
+                height: 70,
+              ),
+              GridView.count(
+                crossAxisCount: 2,
+                childAspectRatio: 0.85,
+                shrinkWrap: true,
+                crossAxisSpacing: 30, //for setting space of the side grid card
+                mainAxisSpacing:
+                    55, //for setting space between mid-space of grid card
                 physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      HomeCard(
-                        title: '학습 시작', 
-                        iconAsset:
-                          'assets/images/books_icon.png',
-                          iconSize: 0.28,
-                          //bgColor: Colors.white, 
-                          //textColor: Colors.black, 
-                          onTap: () { 
-                            Navigator.push(
-                              context, 
-                              MaterialPageRoute(
-                                builder: (_) => const LevelScreen(),
-                                ),
-                              );
-                          }, 
-                        ),
+                children: [
                   HomeCard(
-                        title: '레벨 테스트', 
-                        iconAsset: 'assets/images/pencil_icon.png',
-                        iconSize: 0.28,
+                    title: '학습 시작',
+                    iconAsset: 'assets/images/books_icon.png',
+                    iconSize: 0.28,
+                    //bgColor: Colors.white,
+                    //textColor: Colors.black,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const LevelScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  HomeCard(
+                    title: '레벨 테스트',
+                    iconAsset: 'assets/images/pencil_icon.png',
+                    iconSize: 0.28,
                     onTap: () {
                       Navigator.push(
                         context,
@@ -94,9 +87,9 @@ class HomeScreen extends StatelessWidget{
                     },
                   ),
                   HomeCard(
-                        title: '커뮤니티', 
-                        iconAsset: 'assets/images/community_icon.png',
-                        iconSize: 0.28,
+                    title: '커뮤니티',
+                    iconAsset: 'assets/images/community_icon.png',
+                    iconSize: 0.28,
                     onTap: () {
                       Navigator.push(
                         context,
@@ -107,23 +100,23 @@ class HomeScreen extends StatelessWidget{
                     },
                   ),
                   HomeCard(
-                        title: '설정', 
-                        iconAsset: 'assets/images/setting_icon.png',
-                        iconSize: 0.28,
-onTap: () {
+                    title: '설정',
+                    iconAsset: 'assets/images/setting_icon.png',
+                    iconSize: 0.28,
+                    onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (_) => const Settingscreen(),
                         ),
                       );
-                    }, 
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                    },
+                  ),
+                ],
               ),
+            ],
+          ),
+        ),
       ),
     );
   }
