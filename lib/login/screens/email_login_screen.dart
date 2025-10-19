@@ -67,7 +67,7 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
   }
 
   void _showErrorDialog(String message) {
-    TtsHelper.speak('회원가입 중 오류가 발생했습니다. $message');
+    TtsHelper.speak('로그인 중 오류가 발생했습니다. $message');
 
     showDialog(
       context: context,
