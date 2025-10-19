@@ -122,6 +122,7 @@ class JamoMenuScreen extends StatelessWidget {
                   audioDescription: '돌아가기 버튼입니다. 이전 화면으로 돌아갑니다.',
                   onDoubleTap: () => Navigator.pop(context),
                   child: SquareCard(
+                    onTap: () => {},
                     background: Color(0xFF75B7B3),
                     foreground: Colors.black,
                     child: Column(
