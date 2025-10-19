@@ -5,6 +5,7 @@ import 'package:hack2025_mobile_app/home/widgets/connected_button.dart';
 import 'package:hack2025_mobile_app/home/widgets/home_card.dart';
 import 'package:hack2025_mobile_app/home/widgets/progress_bar.dart';
 import 'package:hack2025_mobile_app/level_test/levelTest_screen.dart';
+import 'package:hack2025_mobile_app/level_test/levet_test_quiz.dart';
 import 'package:hack2025_mobile_app/levels/screens/level_screen.dart';
 import 'package:hack2025_mobile_app/settings/screen/settingScreen.dart';
 import 'package:hack2025_mobile_app/widgets/accessible_wrapper.dart';
@@ -83,7 +84,7 @@ class HomeScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const LeveltestScreen(),
+                          builder: (_) => const LevelTestQuiz(),
                         ),
                       );
                     },
