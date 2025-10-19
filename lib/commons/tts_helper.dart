@@ -7,7 +7,7 @@ class TtsHelper {
   static Future<void> initialize() async {
     if (_isInitialized) return;
 
-    await _flutterTts.setLanguage("en-US");
+    await _flutterTts.setLanguage("ko-KR");
     await _flutterTts.setSpeechRate(0.5);
     await _flutterTts.setVolume(1.0);
     await _flutterTts.setPitch(1.0);
