@@ -3,7 +3,6 @@ import 'package:hack2025_mobile_app/commons/constant/gaps.dart';
 import 'package:hack2025_mobile_app/commons/themes.dart';
 import 'package:hack2025_mobile_app/widgets/userInterests.dart';
 
-
 class Interestscreen extends StatefulWidget {
   const Interestscreen({super.key});
 
@@ -49,7 +48,7 @@ class _InterestscreenState extends State<Interestscreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
-                onTap: () {},  // 저장+돌아가기 (popup뜨기)
+                onTap: () {}, // 저장+돌아가기 (popup뜨기)
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.3,
                   decoration: const BoxDecoration(
@@ -57,7 +56,8 @@ class _InterestscreenState extends State<Interestscreen> {
                     color: Themes.mint,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 4),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -85,7 +85,8 @@ class _InterestscreenState extends State<Interestscreen> {
                     color: Themes.mint,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 4),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
