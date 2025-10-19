@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:hack2025_mobile_app/commons/constant/gaps.dart';
 import 'package:hack2025_mobile_app/commons/themes.dart';
 import 'package:hack2025_mobile_app/commons/tts_helper.dart';
 import 'package:hack2025_mobile_app/comunity/community_screen.dart';
 import 'package:hack2025_mobile_app/home/widgets/connected_button.dart';
 import 'package:hack2025_mobile_app/home/widgets/home_card.dart';
 import 'package:hack2025_mobile_app/home/widgets/progress_bar.dart';
-import 'package:hack2025_mobile_app/level_test/levelTest_screen.dart';
 import 'package:hack2025_mobile_app/level_test/levet_test_quiz.dart';
 import 'package:hack2025_mobile_app/levels/screens/level_screen.dart';
 import 'package:hack2025_mobile_app/settings/screen/settingScreen.dart';
 import 'package:hack2025_mobile_app/widgets/accessible_wrapper.dart';
+import 'package:hack2025_mobile_app/widgets/accessible_button.dart';
 import 'package:hack2025_mobile_app/services/api_service.dart';
+import 'package:hack2025_mobile_app/login/screens/login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -66,6 +68,24 @@ class _HomeScreenState extends State<HomeScreen> {
     await Future.delayed(const Duration(milliseconds: 500));
     await TtsHelper.speak(
         '홈 화면입니다. 환영합니다, $_userName 님! 현재 학습 진행률은 ${(_progressValue * 100).toInt()}퍼센트입니다. 학습 시작, 레벨 테스트, 커뮤니티, 설정 메뉴를 선택할 수 있습니다. 각 카드를 한 번 탭하면 설명을 듣고, 두 번 탭하면 해당 화면으로 이동합니다.');
+  }
+
+  Future<void> _handleLogout() async {
+    if (mounted) {
+      await TtsHelper.speak('로그아웃 중입니다.');
+      // Perform logout
+      await ApiService.logout();
+
+      if (mounted) {
+        await TtsHelper.speak('로그아웃 되었습니다.');
+
+        // Navigate to login screen and remove all previous routes
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+          (route) => false,
+        );
+      }
+    }
   }
 
   @override
@@ -222,6 +242,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
+              Gaps.v40,
+              // Logout button
+              Center(
+                child: AccessibleButton(
+                  label: '로그아웃',
+                  audioDescription:
+                      '로그아웃 버튼입니다. 앱에서 로그아웃하고 로그인 화면으로 돌아갑니다. 두 번 탭하면 로그아웃 됩니다.',
+                  onDoubleTap: _handleLogout,
+                  backgroundColor: Colors.grey[800],
+                  textColor: Colors.white,
+                  icon: Icons.logout,
+                ),
+              ),
+              Gaps.v24,
             ],
           ),
         ),
