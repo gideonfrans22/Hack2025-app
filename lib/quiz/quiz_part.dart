@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:hack2025_mobile_app/levels/screens/beginner/jamo_menu_screen.dart';
 
 class OxQuestion {
   final String id;
@@ -346,9 +347,23 @@ class _OxQuizScreenState extends State<OxQuizScreen> {
         actionsPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
         actions: [
           _wideBtn(
-              '다음 레슨', const Color(0xFF036661), () => Navigator.pop(context)),
-          _wideBtn(correct >= (total * 0.6) ? '다시 해보기' : '이전 레슨으로 돌아가기',
-              Colors.white, () => Navigator.pop(context)),
+              '다음 레슨',
+              const Color(0xFF036661),
+              () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const JamoMenuScreen(),
+                    ),
+                  )),
+          _wideBtn(
+              correct >= (total * 0.6) ? '다시 해보기' : '이전 레슨으로 돌아가기',
+              Colors.white,
+              () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const JamoMenuScreen(),
+                    ),
+                  )),
         ],
       ),
     );
