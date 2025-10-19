@@ -27,7 +27,7 @@ class _SettingscreenState extends State<Settingscreen> {
   }
 
   Future<void> _loadUserData() async {
-    await _speakScreenDescription();
+    _speakScreenDescription();
 
     setState(() => _isLoading = true);
 
