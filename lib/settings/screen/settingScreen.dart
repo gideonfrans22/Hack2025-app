@@ -152,10 +152,11 @@ class _SettingscreenState extends State<Settingscreen> {
                                 ),
                                 AccessibleWrapper(
                                   audioDescription:
-                                      '콜센터 버튼입니다. 고객 지원팀에 연락할 수 있습니다. 두 번 탭하면 전화를 걸 수 있습니다.',
-                                  onDoubleTap: () {
-                                    TtsHelper.speak('콜센터 기능은 아직 준비 중입니다.');
-                                  },
+                                      // '콜센터 버튼입니다. 고객 지원팀에 연락할 수 있습니다. 두 번 탭하면 전화를 걸 수 있습니다.',
+                                      '콜센터 기능은 아직 준비 중입니다.',
+                                  // onDoubleTap: () {
+                                  //   TtsHelper.speak('콜센터 기능은 아직 준비 중입니다.');
+                                  // },
                                   child: Container(
                                     padding: const EdgeInsets.all(8),
                                     width: MediaQuery.of(context).size.width *
