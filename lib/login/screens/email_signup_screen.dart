@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hack2025_mobile_app/commons/constant/gaps.dart';
 import 'package:hack2025_mobile_app/commons/tts_helper.dart';
-import 'package:hack2025_mobile_app/home/screens/home_screen.dart';
 import 'package:hack2025_mobile_app/login/screens/email_login_screen.dart';
+import 'package:hack2025_mobile_app/login/screens/login_screen.dart';
 import 'package:hack2025_mobile_app/regist/userInterestScreen.dart';
 import 'package:hack2025_mobile_app/services/api_service.dart';
 import 'package:hack2025_mobile_app/widgets/accessible_button.dart';
@@ -31,7 +31,19 @@ class _EmailSignupScreenState extends State<EmailSignupScreen> {
   bool _obscureConfirmPassword = true;
 
   @override
+  void initState() {
+    super.initState();
+    _speakScreenDescription();
+  }
+
+  void _speakScreenDescription() {
+    TtsHelper.speak('회원가입 화면입니다. 이름, 나이, 성별, 이메일, 비밀번호를 입력하여 계정을 만들 수 있습니다. '
+        '각 입력 칸을 한 번 탭하면 설명을 들을 수 있고 입력할 수 있습니다.');
+  }
+
+  @override
   void dispose() {
+    TtsHelper.stop();
     _nameController.dispose();
     _ageController.dispose();
     _emailController.dispose();
@@ -106,7 +118,8 @@ class _EmailSignupScreenState extends State<EmailSignupScreen> {
   }
 
   void _onBackTap() {
-    Navigator.pop(context);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (_) => const LoginScreen()));
   }
 
   @override

@@ -1,11 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:hack2025_mobile_app/commons/constant/gaps.dart';
+import 'package:hack2025_mobile_app/commons/tts_helper.dart';
 import 'package:hack2025_mobile_app/login/widgets/login_button.dart';
 import 'package:hack2025_mobile_app/login/screens/email_login_screen.dart';
 import 'package:hack2025_mobile_app/login/screens/email_signup_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _speakWelcomeMessage();
+  }
+
+  void _speakWelcomeMessage() {
+    TtsHelper.speak('리더블에 오신 것을 환영합니다! '
+        '점자 학습 앱입니다. '
+        '로그인하시려면 이메일 로그인 버튼을 두 번 탭하세요. '
+        '처음 오셨다면 회원가입 버튼을 두 번 탭하여 새 계정을 만드세요.');
+  }
+
+  @override
+  void dispose() {
+    TtsHelper.stop();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hack2025_mobile_app/commons/constant/gaps.dart';
 import 'package:hack2025_mobile_app/commons/tts_helper.dart';
 import 'package:hack2025_mobile_app/login/screens/email_signup_screen.dart';
+import 'package:hack2025_mobile_app/login/screens/login_screen.dart';
 import 'package:hack2025_mobile_app/services/api_service.dart';
 import 'package:hack2025_mobile_app/widgets/accessible_button.dart';
 import 'package:hack2025_mobile_app/widgets/accessible_text_field.dart';
@@ -23,7 +24,20 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
   bool _obscurePassword = true;
 
   @override
+  void initState() {
+    super.initState();
+    _speakScreenDescription();
+  }
+
+  void _speakScreenDescription() {
+    TtsHelper.speak('이메일 로그인 화면입니다. 이메일과 비밀번호를 입력하여 로그인할 수 있습니다. '
+        '각 입력 칸을 한 번 탭하면 설명을 들을 수 있고 입력할 수 있습니다. '
+        '계정이 없으시면 회원가입 버튼을 눌러 새 계정을 만드세요.');
+  }
+
+  @override
   void dispose() {
+    TtsHelper.stop();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -87,7 +101,8 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
   }
 
   void _onBackTap() {
-    Navigator.pop(context);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (_) => const LoginScreen()));
   }
 
   @override
