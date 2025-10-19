@@ -93,7 +93,7 @@ class _AccessibleTextFieldState extends State<AccessibleTextField> {
     await _tts.speak('입력 시작');
   }
 
-  void _onFocusChange() async {
+  Future<void> _onFocusChange() async {
     if (_focusNode.hasFocus) {
       await _tts.speak(widget.audioDescription);
       // Perform actions when focused
