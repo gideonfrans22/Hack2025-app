@@ -17,7 +17,7 @@ class LoginScreen extends StatelessWidget {
             child: Image.asset('assets/images/readable_logo.png',
                 fit: BoxFit.fill),
           ),
-          Gaps.h32,
+          Gaps.h20,
           Align(
             alignment: Alignment.center,
             child: Padding(

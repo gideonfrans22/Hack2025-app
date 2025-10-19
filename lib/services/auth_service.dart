@@ -54,11 +54,12 @@ class AuthService {
   // Naver Login
   static Future<Map<String, dynamic>> loginWithNaver() async {
     try {
-      final NaverLoginResult result = await FlutterNaverLogin.logIn();
+      final dynamic result = await FlutterNaverLogin.logIn();
 
-      if (result.status == NaverLoginStatus.loggedIn) {
-        final NaverAccountResult account =
-            await FlutterNaverLogin.currentAccount();
+      // result may be provided as a dynamic/map depending on plugin version;
+      // check for a string "loggedIn" status to avoid relying on SDK enums.
+      if (result != null && result.status == 'loggedIn') {
+        final dynamic account = result.account ?? result.user ?? {};
 
         // Send to backend
         final apiResult = await ApiService.naverLogin(
