@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hack2025_mobile_app/commons/constant/gaps.dart';
 import 'package:hack2025_mobile_app/login/widgets/login_button.dart';
-import 'package:hack2025_mobile_app/login/screens/kakao_login_screen.dart';
-import 'package:hack2025_mobile_app/login/screens/naver_login_screen.dart';
+import 'package:hack2025_mobile_app/login/screens/email_login_screen.dart';
+import 'package:hack2025_mobile_app/login/screens/email_signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -27,13 +27,13 @@ class LoginScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   LoginButton(
-                    way: "네이버 로그인",
-                    destination: (_) => const NaverLoginScreen(),
+                    way: "이메일 로그인",
+                    destination: (_) => const EmailLoginScreen(),
                   ),
                   Gaps.v16,
                   LoginButton(
-                    way: "카카오 로그인",
-                    destination: (_) => const KakaoLoginScreen(),
+                    way: "회원가입",
+                    destination: (_) => const EmailSignupScreen(),
                   ),
                 ],
               ),
