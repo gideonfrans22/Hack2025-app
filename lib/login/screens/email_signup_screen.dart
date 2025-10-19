@@ -3,6 +3,7 @@ import 'package:hack2025_mobile_app/commons/constant/gaps.dart';
 import 'package:hack2025_mobile_app/commons/tts_helper.dart';
 import 'package:hack2025_mobile_app/home/screens/home_screen.dart';
 import 'package:hack2025_mobile_app/login/screens/email_login_screen.dart';
+import 'package:hack2025_mobile_app/regist/userInterestScreen.dart';
 import 'package:hack2025_mobile_app/services/api_service.dart';
 import 'package:hack2025_mobile_app/widgets/accessible_button.dart';
 import 'package:hack2025_mobile_app/widgets/accessible_text_field.dart';
@@ -63,11 +64,12 @@ class _EmailSignupScreenState extends State<EmailSignupScreen> {
       if (!mounted) return;
 
       if (result['success'] == true) {
+        TtsHelper.speak('회원가입에 성공했습니다. 환영합니다!');
         // Navigate to home screen
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
+            builder: (context) => const Userinterestscreen(),
           ),
         );
       } else {
