@@ -1,0 +1,24 @@
+/// Application configuration EXAMPLE
+/// 
+/// Copy this file to app_config.dart and fill in your actual API keys.
+/// DO NOT commit app_config.dart with real keys to version control!
+class AppConfig {
+  // Backend API configuration
+  // Change this to your actual backend URL
+  static const String apiBaseUrl = 'http://localhost:8000/api';
+  
+  // Kakao OAuth configuration
+  // Get your keys from https://developers.kakao.com/
+  static const String kakaoNativeAppKey = 'YOUR_KAKAO_NATIVE_APP_KEY_HERE';
+  static const String kakaoJavascriptKey = 'YOUR_KAKAO_JAVASCRIPT_KEY_HERE';
+  
+  // Naver OAuth configuration
+  // Get your credentials from https://developers.naver.com/
+  static const String naverClientId = 'YOUR_NAVER_CLIENT_ID_HERE';
+  static const String naverClientSecret = 'YOUR_NAVER_CLIENT_SECRET_HERE';
+  static const String naverClientName = 'Readable';
+  
+  // App configuration
+  static const String appName = 'Readable';
+  static const String appVersion = '1.0.0';
+}

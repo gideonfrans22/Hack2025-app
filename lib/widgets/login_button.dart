@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hack2025_mobile_app/commons/themes.dart';
-import 'package:hack2025_mobile_app/widgets/accessible_wrapper.dart';
 
 class LoginButton extends StatelessWidget {
   final String way;
@@ -18,25 +17,23 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AccessibleWrapper(
-      audioDescription: '$way 버튼입니다. $way로 로그인합니다. 두 번 탭하면 로그인 화면으로 이동합니다.',
-      onDoubleTap: () => onTap(context),
+    return GestureDetector(
+      onTap: () => onTap(context),
       child: Stack(
+        alignment: Alignment.center,
         children: [
           // 글씨
           Container(
             width: MediaQuery.of(context).size.width * 0.95,
-            height: MediaQuery.of(context).size.height * 0.2,
-            alignment: Alignment.center,
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
-                color: way == "네이버 로그인"
-                    ? Themes.naver_background
+              color: way == "네이버 로그인"
+                  ? Themes.naver_background
                     : Themes.kakao_background),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
               child: Text(
-                way,
+                way, 
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color:

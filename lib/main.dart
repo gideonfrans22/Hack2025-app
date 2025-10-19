@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:hack2025_mobile_app/home/screens/home_screen.dart';
 import 'package:hack2025_mobile_app/levels/screens/beginner/intro_jamo_first_sound.dart';
 import 'package:hack2025_mobile_app/levels/screens/beginner/jamo_first_sound.dart';
@@ -8,8 +9,14 @@ import 'package:hack2025_mobile_app/levels/screens/level_screen.dart';
 import 'package:hack2025_mobile_app/levels/widgets/braille_cell.dart';
 import 'package:hack2025_mobile_app/login/screens/login_screen.dart';
 import 'package:hack2025_mobile_app/quiz/quiz_part.dart';
+import 'package:hack2025_mobile_app/config/app_config.dart';
 
-void main() => runApp(const Readable());
+void main() {
+  // Initialize Kakao SDK
+  KakaoSdk.init(nativeAppKey: AppConfig.kakaoNativeAppKey);
+
+  runApp(const Readable());
+}
 
 class Readable extends StatelessWidget {
   const Readable({super.key});
@@ -25,8 +32,8 @@ class Readable extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       title: 'My App',
-      //home: const LoginScreen(),
-      home: const HomeScreen(),
+      home: const LoginScreen(),
+      // home: const HomeScreen(),
       //home: const Part1FirstCons2(),
       //home:  const BrailleCell(),
       //home:  const LevelScreen(),
@@ -37,5 +44,4 @@ class Readable extends StatelessWidget {
       //),
     );
   }
-
 }
