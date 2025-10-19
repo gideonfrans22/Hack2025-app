@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hack2025_mobile_app/commons/constant/gaps.dart';
+import 'package:hack2025_mobile_app/commons/themes.dart';
+import 'package:hack2025_mobile_app/commons/tts_helper.dart';
 import 'package:hack2025_mobile_app/comunity/community_screen.dart';
 import 'package:hack2025_mobile_app/home/widgets/connected_button.dart';
 import 'package:hack2025_mobile_app/home/widgets/home_card.dart';
@@ -9,16 +10,84 @@ import 'package:hack2025_mobile_app/level_test/levet_test_quiz.dart';
 import 'package:hack2025_mobile_app/levels/screens/level_screen.dart';
 import 'package:hack2025_mobile_app/settings/screen/settingScreen.dart';
 import 'package:hack2025_mobile_app/widgets/accessible_wrapper.dart';
+import 'package:hack2025_mobile_app/services/api_service.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({
     super.key,
   });
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool _isLoading = true;
+  String _userName = '사용자';
+  double _progressValue = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    TtsHelper.initialize();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    setState(() => _isLoading = true);
+
+    try {
+      final userInfo = await ApiService.getUserInfo();
+
+      if (!mounted) return;
+
+      setState(() {
+        _userName = userInfo?['name'] ?? '사용자';
+        // Calculate progress based on user data (you can adjust this logic)
+        // For now, using a placeholder
+        _progressValue = 0.65;
+        _isLoading = false;
+      });
+
+      // Speak welcome message after data loads
+      await _speakScreenDescription();
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+          _userName = '사용자';
+        });
+        await TtsHelper.speak('사용자 정보를 불러오는 중 오류가 발생했습니다.');
+      }
+    }
+  }
+
+  Future<void> _speakScreenDescription() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    await TtsHelper.speak(
+        '홈 화면입니다. 환영합니다, $_userName 님! 현재 학습 진행률은 ${(_progressValue * 100).toInt()}퍼센트입니다. 학습 시작, 레벨 테스트, 커뮤니티, 설정 메뉴를 선택할 수 있습니다. 각 카드를 한 번 탭하면 설명을 듣고, 두 번 탭하면 해당 화면으로 이동합니다.');
+  }
+
+  @override
+  void dispose() {
+    TtsHelper.stop();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
     final sw = MediaQuery.of(context).size.width;
+
+    if (_isLoading) {
+      return const Scaffold(
+        backgroundColor: Colors.black,
+        body: Center(
+          child: CircularProgressIndicator(
+            color: Themes.mint,
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -28,26 +97,49 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                '환영합니다, 민수님!',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 32,
-                  fontWeight: FontWeight.w800,
+              AccessibleWrapper(
+                audioDescription:
+                    '환영합니다, $_userName 님! 현재 학습 진행률은 ${(_progressValue * 100).toInt()}퍼센트입니다.',
+                onDoubleTap: () {
+                  TtsHelper.speak(
+                      '환영합니다, $_userName 님! 현재 학습 진행률은 ${(_progressValue * 100).toInt()}퍼센트입니다.');
+                },
+                child: Text(
+                  '환영합니다, $_userName님!',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 32,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
-              const ProgressBar(
-                value: 0.05,
-                height: 18,
-                bgColor: Colors.white,
-                fillColor: Color(0xFF75B7B3),
-                labelRight: '65%',
+              AccessibleWrapper(
+                audioDescription:
+                    '학습 진행률입니다. 현재 ${(_progressValue * 100).toInt()}퍼센트 완료했습니다.',
+                onDoubleTap: () {
+                  TtsHelper.speak(
+                      '학습 진행률은 ${(_progressValue * 100).toInt()}퍼센트입니다.');
+                },
+                child: ProgressBar(
+                  value: _progressValue,
+                  height: 18,
+                  bgColor: Colors.white,
+                  fillColor: const Color(0xFF75B7B3),
+                  labelRight: '${(_progressValue * 100).toInt()}%',
+                ),
               ),
               const SizedBox(height: 60),
-              const ConnectedButton(
-                  isConnected: false,
-                  iconPng: 'assets/images/braille_icon.png'),
+              AccessibleWrapper(
+                audioDescription:
+                    '점자 디스플레이 연결 버튼입니다. 현재 연결되지 않았습니다. 두 번 탭하면 점자 디스플레이를 연결할 수 있습니다.',
+                onDoubleTap: () {
+                  TtsHelper.speak('점자 디스플레이 연결 기능은 준비 중입니다.');
+                },
+                child: const ConnectedButton(
+                    isConnected: false,
+                    iconPng: 'assets/images/braille_icon.png'),
+              ),
               const SizedBox(
                 height: 70,
               ),
