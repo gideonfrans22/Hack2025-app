@@ -65,7 +65,7 @@ class AccessibleWrapper extends StatefulWidget {
     this.pitch,
     this.volume,
     this.enabled = true,
-    this.showSpeakingIndicator = true,
+    this.showSpeakingIndicator = false,
     this.indicatorAlignment,
     this.customIndicator,
   });
