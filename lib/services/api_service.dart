@@ -31,11 +31,48 @@ class ApiService {
 
   // Get user info
   static Future<Map<String, dynamic>?> getUserInfo() async {
-    final userInfoStr = await _storage.read(key: 'user_info');
-    if (userInfoStr != null) {
-      return jsonDecode(userInfoStr);
+    try {
+      final token = await getToken();
+      if (token == null) {
+        // No token, try reading from storage
+        final userInfoStr = await _storage.read(key: 'user_info');
+        if (userInfoStr != null) {
+          return jsonDecode(userInfoStr);
+        }
+        return null;
+      }
+
+      final response = await http.get(
+        Uri.parse('$baseUrl/me'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        // Update stored user info with fresh data
+        await saveUserInfo(data);
+
+        return data;
+      } else {
+        // API call failed, fallback to storage
+        final userInfoStr = await _storage.read(key: 'user_info');
+        if (userInfoStr != null) {
+          return jsonDecode(userInfoStr);
+        }
+        return null;
+      }
+    } catch (e) {
+      // Network error, fallback to storage
+      final userInfoStr = await _storage.read(key: 'user_info');
+      if (userInfoStr != null) {
+        return jsonDecode(userInfoStr);
+      }
+      return null;
     }
-    return null;
   }
 
   // Kakao Login API
