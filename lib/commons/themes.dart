@@ -12,6 +12,7 @@ class Themes {
   static const Color materialBaselinePrimaryColor = Color(0xFF6750A4);
   static const Color sakuraPrimaryColor = Color(0xFFCE5B78);
   static const Color greyLawPrimaryColor = Color(0xFF37474F);
+  static const Color mint = Color(0xFF74BDB7);
 
   static const List<Color> themePrimaryColorList = [
     naver_background,
@@ -24,5 +25,6 @@ class Themes {
     materialBaselinePrimaryColor,
     sakuraPrimaryColor,
     greyLawPrimaryColor,
+    mint,
   ];
 }

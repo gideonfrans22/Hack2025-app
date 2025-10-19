@@ -35,9 +35,9 @@ class HomeScreen extends StatelessWidget{
                 ),
               ),
 
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-                ProgressBar(
+                const ProgressBar(
                   value: 0.05,
                   height: 18,
                   bgColor: Colors.white,
@@ -82,10 +82,12 @@ class HomeScreen extends StatelessWidget{
                         iconAsset: 'assets/images/pencil_icon.png',
                         iconSize: 0.28,
                         ),
-                      const HomeCard(
+                      HomeCard(
                         title: '커뮤니티', 
                         iconAsset: 'assets/images/community_icon.png',
                         iconSize: 0.28,
+                        onTap: () { 
+                          }, 
                         ),
                       const HomeCard(
                         title: '설정', 
