@@ -45,7 +45,7 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
       if (!mounted) return;
 
       if (result['success'] == true) {
-        TtsHelper.speak('로그인에 성공했습니다. 환영합니다!');
+        await TtsHelper.speak('로그인에 성공했습니다. 환영합니다!');
         // Navigate to home screen
         Navigator.pushReplacement(
           context,
