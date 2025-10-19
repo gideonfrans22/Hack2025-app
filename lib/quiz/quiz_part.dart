@@ -1,6 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:hack2025_mobile_app/commons/constant/gaps.dart';
 import 'package:hack2025_mobile_app/levels/screens/beginner/jamo_menu_screen.dart';
+import 'package:hack2025_mobile_app/widgets/accessible_button.dart';
+import 'package:hack2025_mobile_app/widgets/accessible_wrapper.dart';
+import 'package:hack2025_mobile_app/widgets/braille_dots.dart';
 
 class OxQuestion {
   final String id;
@@ -35,21 +39,21 @@ class FakeQuizService implements QuizService {
     return const [
       OxQuestion(
         id: 'q1',
-        dotsOn: [0, 3],
+        dotsOn: [1, 4],
         prompt: '점자에서 ㄴ 나타납니다.\n이것이 ㄴ 맞을까요?\nO/X를 선택해주세요!',
         answer: true,
         header: 'ㄴ',
       ),
       OxQuestion(
         id: 'q2',
-        dotsOn: [1, 2, 4],
+        dotsOn: [1],
         prompt: '점자에서 ㄱ 나타납니다.\n이것이 ㄱ 맞을까요?\nO/X를 선택해주세요!',
         answer: false,
         header: 'ㄱ',
       ),
       OxQuestion(
         id: 'q3',
-        dotsOn: [0, 1, 2],
+        dotsOn: [1, 4],
         prompt: '점자 디스플레이에서 입력해주세요!',
         answer: true,
         header: 'ㄴ',
@@ -169,7 +173,7 @@ class _OxQuizScreenState extends State<OxQuizScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _BrailleDots(
+                    BrailleDots(
                       on: q.dotsOn,
                       dotSize: 28,
                       hGap: 16,
@@ -192,20 +196,20 @@ class _OxQuizScreenState extends State<OxQuizScreen> {
               const SizedBox(height: 8),
 
               if (widget.mode == QuizMode.oxButtons)
-                Row(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _OxButton(
-                      label: 'O',
-                      bg: Colors.white,
-                      onTap: _locked ? null : () => _handleAnswer(true),
-                    ),
-                    const SizedBox(width: 10),
-                    _OxButton(
-                      label: 'X',
-                      bg: _mint,
-                      onTap: _locked ? null : () => _handleAnswer(false),
-                    ),
+                    AccessibleButton(
+                        label: 'O',
+                        backgroundColor: Colors.white,
+                        audioDescription: 'O 버튼입니다. 두 번 탭하면 O를 선택합니다.',
+                        onDoubleTap: () => _handleAnswer(true)),
+                    Gaps.v16,
+                    AccessibleButton(
+                        label: 'X',
+                        backgroundColor: Colors.white,
+                        audioDescription: 'X 버튼입니다. 두 번 탭하면 X를 선택합니다.',
+                        onDoubleTap: () => _handleAnswer(false)),
                   ],
                 )
               else
@@ -381,86 +385,6 @@ class _OxQuizScreenState extends State<OxQuizScreen> {
                 borderRadius: BorderRadius.circular(12))),
         onPressed: onTap,
         child: Text(label),
-      ),
-    );
-  }
-}
-
-class _OxButton extends StatelessWidget {
-  final String label;
-  final Color bg;
-  final VoidCallback? onTap;
-  const _OxButton({required this.label, required this.bg, this.onTap});
-  @override
-  Widget build(BuildContext context) {
-    final enabled = onTap != null;
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Ink(
-        width: 110,
-        height: 72,
-        decoration: BoxDecoration(
-          color: bg,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Center(
-          child: Text(
-            label,
-            style: TextStyle(
-              fontWeight: FontWeight.w900,
-              fontSize: 36,
-              color: bg.computeLuminance() < 0.5 ? Colors.white : Colors.black,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _BrailleDots extends StatelessWidget {
-  final List<int> on;
-  final double dotSize;
-  final double hGap;
-  final double vGap;
-
-  const _BrailleDots({
-    required this.on,
-    this.dotSize = 22,
-    this.hGap = 16,
-    this.vGap = 16,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    Widget dot(bool isOn) => Container(
-          width: dotSize,
-          height: dotSize,
-          decoration: BoxDecoration(
-            color: isOn ? Colors.white : const Color(0xFF6B6B6B),
-            shape: BoxShape.circle,
-          ),
-        );
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: List.generate(
-        3,
-        (r) => Padding(
-          padding: EdgeInsets.symmetric(vertical: vGap / 2),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(2, (c) {
-              final i = r * 2 + c;
-              final isOn = on.contains(i);
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: hGap / 2),
-                child: dot(isOn),
-              );
-            }),
-          ),
-        ),
       ),
     );
   }
