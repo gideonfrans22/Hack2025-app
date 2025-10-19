@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hack2025_mobile_app/commons/tts_helper.dart';
+import 'package:hack2025_mobile_app/widgets/accessible_wrapper.dart';
 
 class Enteranswer extends StatefulWidget {
   final bool isO;
 
   final bool? correctAnswer; // 정답(O/X)
-  final bool? userAnswer;    // 유저 선택(O/X)
+  final bool? userAnswer; // 유저 선택(O/X)
   final void Function(bool isCorrect)? onAnswered; // ← 정오답을 부모로 전달
 
   const Enteranswer({
@@ -20,74 +22,28 @@ class Enteranswer extends StatefulWidget {
 }
 
 class _EnteranswerState extends State<Enteranswer> {
+  Future<void> _handleAnswer() async {
+    final isCorrect =
+        (widget.correctAnswer ?? false) == (widget.userAnswer ?? false);
+
+    // TTS 피드백
+    TtsHelper.speak(isCorrect ? '정답입니다!' : '오답입니다!');
+    await Future.delayed(const Duration(seconds: 1));
+    TtsHelper.speak('다음 문제로 넘어갑니다');
+    widget.onAnswered?.call(isCorrect); // 부모에게 정오답 전달
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        final isCorrect =
-            (widget.correctAnswer ?? false) == (widget.userAnswer ?? false);
+    final buttonLabel = widget.isO ? 'O' : 'X';
+    final audioDescription = widget.isO
+        ? 'O 버튼입니다. 정답이라고 생각하면 두 번 탭하세요.'
+        : 'X 버튼입니다. 오답이라고 생각하면 두 번 탭하세요.';
 
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              backgroundColor: Colors.white,
-              title: Center(
-                child: Text(
-                  isCorrect ? "정답" : "오답",
-                  style: const TextStyle(
-                    fontSize: 35,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              content: SizedBox(
-                width: 300,
-                height: 180,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      isCorrect ? Icons.check : Icons.close,
-                      color: isCorrect ? Colors.green : Colors.red,
-                      size: 120,
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      isCorrect ? '잘했어요!' : '다시 시도해봐요!',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.black87,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                Center(
-                  child: Container(
-                    color:Colors.black,
-                    width: 200,
-                    height: 100,
-                    child: TextButton(
-                      child: const Text('확인',style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.bold)),
-                      onPressed: () {
-                        Navigator.of(context).pop();     // 다이얼로그 닫기
-                        widget.onAnswered?.call(isCorrect); // 부모에게 정오답 전달
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
-        );
-      },
+    return AccessibleWrapper(
+      audioDescription: audioDescription,
+      onDoubleTap: _handleAnswer,
       child: Container(
-        width: 140,
         height: 125,
         decoration: BoxDecoration(
           color: widget.isO ? Colors.white : const Color(0xFF036661),
@@ -95,7 +51,7 @@ class _EnteranswerState extends State<Enteranswer> {
         ),
         alignment: Alignment.center,
         child: Text(
-          widget.isO ? "O" : "X",
+          buttonLabel,
           style: TextStyle(
             color: widget.isO ? Colors.black : Colors.white,
             fontWeight: FontWeight.bold,
