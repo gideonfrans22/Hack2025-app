@@ -279,7 +279,8 @@ class _SettingscreenState extends State<Settingscreen> {
     }
 
     final name = _userInfo!['name'] ?? '이름 없음';
-    final age = _userInfo!['age']?.toString() ?? '나이 없음';
+    final ageText =
+        _userInfo!['age'] != null ? '${_userInfo!['age']}세' : '나이 없음';
     final interests = _userInfo!['interests'] as List<dynamic>?;
     final interestsText = interests != null && interests.isNotEmpty
         ? interests.join(', ')
@@ -287,9 +288,9 @@ class _SettingscreenState extends State<Settingscreen> {
 
     return AccessibleWrapper(
       audioDescription:
-          '계정 정보입니다. 이름: $name, 나이: $age세, 관심사: $interestsText. 한 번 탭하면 정보를 다시 들을 수 있습니다.',
+          '계정 정보입니다. 이름: $name, 나이: $ageText, 관심사: $interestsText. 한 번 탭하면 정보를 다시 들을 수 있습니다.',
       onDoubleTap: () {
-        TtsHelper.speak('이름: $name, 나이: $age세, 관심사: $interestsText');
+        TtsHelper.speak('이름: $name, 나이: $ageText, 관심사: $interestsText');
       },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -315,7 +316,7 @@ class _SettingscreenState extends State<Settingscreen> {
                   ),
                 ),
                 Text(
-                  "$age세",
+                  ageText,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: MediaQuery.of(context).size.height * 0.03,
