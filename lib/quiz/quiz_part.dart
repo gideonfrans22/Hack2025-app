@@ -386,7 +386,7 @@ class _OxButton extends StatelessWidget {
         width: 110,
         height: 72,
         decoration: BoxDecoration(
-          color: enabled ? bg : bg,
+          color: bg,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Center(
