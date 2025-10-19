@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:hack2025_mobile_app/home/screens/home_screen.dart';
 import 'package:hack2025_mobile_app/level_test/enterAnswer.dart';
+import 'package:hack2025_mobile_app/level_test/levet_test_quiz.dart';
 
 class quiz extends StatefulWidget {
   const quiz({super.key});
@@ -228,7 +230,12 @@ class _ResultScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      onPressed: onRetry,
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) =>
+                                const LevelTestQuiz()), // 클래스명이 quiz면 그대로
+                      ),
                       child: const Text(
                         '다시 해보기',
                         style: TextStyle(
@@ -250,7 +257,12 @@ class _ResultScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      onPressed: onBack,
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) =>
+                                const HomeScreen()), // 클래스명이 quiz면 그대로
+                      ),
                       child: const Text(
                         '돌아가기',
                         style: TextStyle(
