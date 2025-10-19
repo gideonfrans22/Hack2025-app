@@ -37,7 +37,7 @@ class _ModifyprofileState extends State<Modifyprofile> {
   }
 
   Future<void> _loadUserInfo() async {
-    await _speakScreenDescription();
+    _speakScreenDescription();
 
     setState(() => _isLoading = true);
 
@@ -71,7 +71,7 @@ class _ModifyprofileState extends State<Modifyprofile> {
   Future<void> _speakScreenDescription() async {
     await Future.delayed(const Duration(milliseconds: 500));
     await TtsHelper.speak(
-        '개인정보 수정 화면입니다. 이름, 나이, 성별, 닉네임, 취미, 이메일을 수정할 수 있습니다. 각 입력 칸을 한 번 누르면 설명을 듣고, 두 번 누르면 입력할 수 있습니다. 수정 후 저장 버튼을 눌러 변경사항을 저장하세요.');
+        '개인정보 수정 화면입니다. 이름, 나이, 성별, 닉네임, 취미, 이메일을 수정할 수 있습니다. 각 입력 칸을 한 번 누르면 설명을 듣고 입력할 수 있습니다. 수정 후 저장 버튼을 눌러 변경사항을 저장하세요.');
   }
 
   Future<void> _saveUserInfo() async {
