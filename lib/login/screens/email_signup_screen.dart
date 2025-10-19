@@ -65,6 +65,7 @@ class _EmailSignupScreenState extends State<EmailSignupScreen> {
 
       if (result['success'] == true) {
         await TtsHelper.speak('회원가입에 성공했습니다. 환영합니다!');
+        await Future.delayed(const Duration(seconds: 2));
         // Navigate to home screen
         Navigator.pushReplacement(
           context,
