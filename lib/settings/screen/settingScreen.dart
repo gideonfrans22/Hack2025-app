@@ -288,10 +288,7 @@ class _SettingscreenState extends State<Settingscreen> {
 
     return AccessibleWrapper(
       audioDescription:
-          '계정 정보입니다. 이름: $name, 나이: $ageText, 관심사: $interestsText. 한 번 탭하면 정보를 다시 들을 수 있습니다.',
-      onDoubleTap: () {
-        TtsHelper.speak('이름: $name, 나이: $ageText, 관심사: $interestsText');
-      },
+          '계정 정보입니다. 이름: $name, 나이: $ageText, 관심사: $interestsText',
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
