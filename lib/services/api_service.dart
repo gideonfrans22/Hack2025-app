@@ -65,8 +65,8 @@ class ApiService {
         final data = jsonDecode(response.body);
 
         // Save token and user info
-        if (data['token'] != null) {
-          await saveToken(data['token']);
+        if (data['access_token'] != null) {
+          await saveToken(data['access_token']);
         }
         if (data['user'] != null) {
           await saveUserInfo(data['user']);
@@ -117,8 +117,8 @@ class ApiService {
         final data = jsonDecode(response.body);
 
         // Save token and user info
-        if (data['token'] != null) {
-          await saveToken(data['token']);
+        if (data['access_token'] != null) {
+          await saveToken(data['access_token']);
         }
         if (data['user'] != null) {
           await saveUserInfo(data['user']);
@@ -209,8 +209,8 @@ class ApiService {
         final data = jsonDecode(response.body);
 
         // Save token
-        if (data['token'] != null) {
-          await saveToken(data['token']);
+        if (data['access_token'] != null) {
+          await saveToken(data['access_token']);
         }
 
         // Save user info
@@ -262,8 +262,8 @@ class ApiService {
         final data = jsonDecode(response.body);
 
         // Save token if provided
-        if (data['token'] != null) {
-          await saveToken(data['token']);
+        if (data['access_token'] != null) {
+          await saveToken(data['access_token']);
         }
 
         // Save user info if provided
