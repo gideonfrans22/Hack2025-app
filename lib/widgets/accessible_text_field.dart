@@ -59,13 +59,12 @@ class AccessibleTextField extends StatefulWidget {
 
 class _AccessibleTextFieldState extends State<AccessibleTextField> {
   final FlutterTts _tts = FlutterTts();
-  late FocusNode _focusNode = FocusNode();
+  FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
     _initTts();
-    _focusNode = FocusNode();
     _focusNode.addListener(_onFocusChange);
   }
 
