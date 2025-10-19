@@ -124,7 +124,6 @@ class JamoMenuScreen extends StatelessWidget {
                   child: SquareCard(
                     background: Color(0xFF75B7B3),
                     foreground: Colors.black,
-                    onTap: () {}, // Empty - handled by AccessibleWrapper
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
