@@ -1,7 +1,8 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hack2025_mobile_app/config/app_config.dart';
+import 'package:http/http.dart' as http;
 
 class ApiService {
   static const String baseUrl = AppConfig.apiBaseUrl;
@@ -179,6 +180,106 @@ class ApiService {
         return {
           'success': false,
           'error': 'Update failed: ${response.statusCode}',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: $e',
+      };
+    }
+  }
+
+  // Email Login API
+  static Future<Map<String, dynamic>> emailLogin({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/login'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'email': email,
+          'password': password,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        // Save token
+        if (data['token'] != null) {
+          await saveToken(data['token']);
+        }
+
+        // Save user info
+        if (data['user'] != null) {
+          await saveUserInfo(data['user']);
+        }
+
+        return {
+          'success': true,
+          'data': data,
+        };
+      } else {
+        final error = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': error['detail'] ?? 'Login failed',
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'error': 'Network error: $e',
+      };
+    }
+  }
+
+  // Email Signup API
+  static Future<Map<String, dynamic>> emailSignup({
+    required String name,
+    required int age,
+    required String gender,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/signup'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'name': name,
+          'age': age,
+          'gender': gender,
+          'email': email,
+          'password': password,
+        }),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+
+        // Save token if provided
+        if (data['token'] != null) {
+          await saveToken(data['token']);
+        }
+
+        // Save user info if provided
+        if (data['user'] != null) {
+          await saveUserInfo(data['user']);
+        }
+
+        return {
+          'success': true,
+          'data': data,
+        };
+      } else {
+        final error = jsonDecode(response.body);
+        return {
+          'success': false,
+          'error': error['detail'] ?? 'Signup failed',
         };
       }
     } catch (e) {
